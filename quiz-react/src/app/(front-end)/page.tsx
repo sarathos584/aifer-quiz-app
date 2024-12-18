@@ -3,8 +3,8 @@
 export default function Home() {
 
   return (
-    <main>
-
+    <main className="h-full">
+      
     </main>
   );
 }
