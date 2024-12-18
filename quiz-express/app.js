@@ -4,6 +4,7 @@ import cors from 'cors'
 import connectDB from './configs/db.js'
 import testRouter from './routes/test/testRoutes.js'
 import { errorHandler, notFound } from './middlewares/errorMiddleware.js'
+import questionRouter from './routes/v1/questionsRoutes.js'
 
 dotenv.config()
 
@@ -20,8 +21,6 @@ const corsOptions = {
   };
 
 app.use(cors(corsOptions))
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -34,8 +33,7 @@ if (process.env.ENV === 'dev') {
     app.use('/api/test', testRouter)
 }
 
-
-// ROUTES HERE
+app.use('/api/v1/questions', questionRouter)
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");

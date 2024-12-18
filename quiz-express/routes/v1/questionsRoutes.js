@@ -1,5 +1,8 @@
 import { Router } from "express";
+import { listQuestions } from "../../controllers/v1/questionsController.js";
 
-const router = Router()
+const questionRouter = Router()
 
-export default router
+questionRouter.get('/list', listQuestions)
+
+export default questionRouter
