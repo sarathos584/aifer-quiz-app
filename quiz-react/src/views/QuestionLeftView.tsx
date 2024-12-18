@@ -1,9 +1,10 @@
 'use client'
 
+import Loading from "@/app/(front-end)/loading"
 import dynamic from "next/dynamic"
 
-const QuestionCard = dynamic(()=> import("@/components/QuestionCard"), { ssr: false })
-const ExplanationCard = dynamic(()=> import("@/components/ExplanationCard"), { ssr: false })
+const QuestionCard = dynamic(()=> import("@/components/QuestionCard"), { ssr: false, loading: () => <Loading/> })
+const ExplanationCard = dynamic(()=> import("@/components/ExplanationCard"), { ssr: false, loading: () => <Loading/> })
 
 const QuestionLeftView = () => {
 

@@ -1,7 +1,8 @@
 import dynamic from "next/dynamic"
+import Loading from "./loading"
 
-const QuestionLeftView = dynamic(()=> import("@/views/QuestionLeftView"))
-const QuestionRightView = dynamic(()=> import("@/views/QuestionRightView"))
+const QuestionLeftView = dynamic(()=> import("@/views/QuestionLeftView"), { ssr: false, loading: () => <Loading/> })
+const QuestionRightView = dynamic(()=> import("@/views/QuestionRightView"), { ssr: false, loading: () => <Loading/> })
 
 const Home = () => {
 

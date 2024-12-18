@@ -18,7 +18,7 @@ const ExplanationCard = ({ explanation }: { explanation: string }) => {
         className="underline underline-offset-4 font-normal text-indigo-400 cursor-pointer" 
         onClick={toggleExplanation}
         >
-        {showExplanation}
+        Show Explanation
         </span>
 
         { showExplanation && (

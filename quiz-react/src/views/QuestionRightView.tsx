@@ -1,8 +1,9 @@
 import dynamic from "next/dynamic"
 import Link from "next/link"
 import Card from "@/components/Card"
+import Loading from "@/app/(front-end)/loading"
 
-const Bubble = dynamic(()=> import("@/components/Bubble"))
+const Bubble = dynamic(()=> import("@/components/Bubble"), { ssr: false, loading: () => <Loading/> })
 
 const QuestionRightView = () => {
   
