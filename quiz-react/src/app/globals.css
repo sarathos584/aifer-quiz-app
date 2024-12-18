@@ -10,9 +10,9 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 54,134,255,255;
-    --background-start-rgb: 54,134,255,255;
-    --background-end-rgb: 54,134,255,255;
+    --foreground-rgb: 99 102 241;
+    --background-start-rgb: 99 102 241;
+    --background-end-rgb: 99 102 241;
   }
 }
 
@@ -40,4 +40,21 @@ body {
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+}
+.btn-primary {
+  padding: 4px;
+  color: rgb(99 102 241 / 1);
+  border: 1px solid rgb(99 102 241 / 1);
+  border-radius: 4px;
+  min-width: 70px;
+  text-align: center;
+}
+
+.btn-primary:hover {
+  background: rgb(99 102 241 / 1);
+  color: white;
+}
+
+.card .card-title {
+  color: rgb(99 102 241 / 1);
 }
