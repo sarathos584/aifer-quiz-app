@@ -1,8 +1,11 @@
-import Bubble from "@/components/Bubble"
-import Card from "@/components/Card"
+import dynamic from "next/dynamic"
 import Link from "next/link"
+import Card from "@/components/Card"
+
+const Bubble = dynamic(()=> import("@/components/Bubble"))
 
 const QuestionRightView = () => {
+  
   return (
     <div className="basis-[30%] bg-purple-100 min-h-[70vh]">
         <Card className="min-h-full">

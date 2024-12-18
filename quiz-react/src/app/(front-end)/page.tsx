@@ -1,5 +1,7 @@
-import QuestionLeftView from "@/views/QuestionLeftView"
-import QuestionRightView from "@/views/QuestionRightView"
+import dynamic from "next/dynamic"
+
+const QuestionLeftView = dynamic(()=> import("@/views/QuestionLeftView"))
+const QuestionRightView = dynamic(()=> import("@/views/QuestionRightView"))
 
 const Home = () => {
 
