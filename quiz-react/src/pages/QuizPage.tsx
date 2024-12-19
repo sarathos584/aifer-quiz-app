@@ -7,27 +7,44 @@ import Card from "@/components/Card"
 import axios from 'axios'
 
 import Loading from "@/app/(front-end)/loading"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import useQuestions from "@/hooks/useQuestions"
+import { Question } from "@/types/types"
 
 const QuestionCard = dynamic(()=> import("@/components/QuestionCard"), { ssr: false, loading: () => <Loading/> })
 const ExplanationCard = dynamic(()=> import("@/components/ExplanationCard"), { ssr: false, loading: () => <Loading/> })
 const Bubble = dynamic(()=> import("@/components/Bubble"), { ssr: false, loading: () => <Loading/> })
 
+
+
+
 const QuizPage = () => {
 
-    
 const { questions, isLoading, isError } = useQuestions('list')
-    
+
+const renderQuestionBubbles = useCallback((questions: Question[]) => {
+
+   return questions.map((question: Question, idx: number)=> (<Bubble 
+                                                        value={idx} 
+                                                        status={'todo'} 
+                                                        id={question._id} 
+                                                        key={idx}/>))
+}, [])
+
+
+
  if (isLoading) {
     
     return <div>Loading...</div>
  }
+
  if (isError) {
     
     return <div>Error</div>
  }
+
  if (questions) {
+    
     return (
         <section id='quiz' className="h-full bg-slate-100 min-h-[75vh] w-full] mx-auto max-w-[75vw] rounded-md px-4 py-3">
             <h3 className="text-center font-medium text-xl text-black mb-[1em]">Quiz Title</h3>
@@ -47,20 +64,12 @@ const { questions, isLoading, isError } = useQuestions('list')
                 <Link href={'/'}>Need Help?</Link>
                 </div>
                 <div className="card-content grid grid-cols-5 gap-2 place-items-center">
-                <Bubble value={1} status="active"/>
+                {/* <Bubble value={1} status="active"/>
                 <Bubble value={1} status="todo"/>
-                <Bubble value={1} status="completed"/>
-                <Bubble value={1} status="active"/>
-                <Bubble value={1} status="active"/>
-                <Bubble value={1} status="active"/>
-                <Bubble value={1} status="active"/>
-                <Bubble value={1} status="active"/>
-                <Bubble value={1} status="active"/>
-                <Bubble value={1} status="active"/>
-                <Bubble value={1} status="active"/>
-                <Bubble value={1} status="active"/>
-                <Bubble value={1} status="active"/>
-                <Bubble value={1} status="active"/>
+                <Bubble value={1} status="completed"/> */}
+                {
+                   renderQuestionBubbles(questions)
+                }
                 </div>
             </Card>
         </div>

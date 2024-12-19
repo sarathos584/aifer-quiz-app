@@ -9,9 +9,8 @@ function useQuestions(key: string) {
     key ? `${process.env.NEXT_PUBLIC_API_URL}/api/v1/questions/${key}` : null, 
     fetcher
   );
-
   return {
-    questions: data,
+    questions: data?.data,
     isLoading,
     isError: error,
   };
