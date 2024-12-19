@@ -2,8 +2,8 @@
 import { memo } from "react"
 
 const statusStyleObj: { [key: string]: string } = {
-    active: 'bg-red-300 text-white',
-    completed: 'bg-indigo-400 text-white'
+    active: 'bg-indigo-400 text-white',
+    attended: 'bg-indigo-300 text-white',
 }
 
 interface Props {

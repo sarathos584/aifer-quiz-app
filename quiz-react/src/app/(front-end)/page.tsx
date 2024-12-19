@@ -1,6 +1,8 @@
 'use client'
 
-import QuizPage from "@/pages/QuizPage"
+import dynamic from "next/dynamic"
+
+const QuizPage = dynamic(()=> import( "@/pages/QuizPage"))
 
 const Home = () => {
 

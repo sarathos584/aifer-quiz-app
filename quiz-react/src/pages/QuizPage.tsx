@@ -21,16 +21,22 @@ const { questions,
         isLoading, 
         isError, 
         activeQuestion, 
-        activeQuestionToggle } = useQuestionContext()
+        questionStatusToggle, 
+        setSelectedAnswer
+     } = useQuestionContext()
 
 
 const prevQuestion = useCallback(() => {
-    activeQuestionToggle(activeQuestion - 1)
-}, [activeQuestion, activeQuestionToggle])
+    questionStatusToggle(activeQuestion, 'attended')
+    questionStatusToggle(activeQuestion - 1, 'active')
+    setSelectedAnswer(null)
+}, [activeQuestion,setSelectedAnswer, questionStatusToggle])
 
 const nextQuestion = useCallback(() => {
-    activeQuestionToggle(activeQuestion + 1)
-}, [activeQuestion, activeQuestionToggle])
+    questionStatusToggle(activeQuestion, 'attended')
+    questionStatusToggle(activeQuestion + 1, 'active')
+    setSelectedAnswer(null)
+}, [activeQuestion, setSelectedAnswer, questionStatusToggle])
 
 const renderQuestionBubbles = useCallback((questions: Question[]) => {
 

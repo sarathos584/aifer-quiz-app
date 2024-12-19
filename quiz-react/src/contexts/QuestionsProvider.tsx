@@ -1,6 +1,7 @@
 'use client'
 
 import useQuestions from "@/hooks/useQuestions";
+import { Question } from "@/types/types";
 import { ReactNode, createContext, useCallback, useContext, useEffect, useState } from "react";
 
 
@@ -8,34 +9,47 @@ const QuestionsContext = createContext<any | undefined>(undefined);
 
 export const QuestionsProvider = ({ children }: { children: ReactNode })=> {
 
-    const { questions, isError, isLoading } = useQuestions('list')
+    const { questions: serverResponse, isError, isLoading } = useQuestions('list')
 
     const [activeQuestion, setActiveQuestion] = useState(0) 
-    const [activeQuestionObjectId, setActiveQuestionObjectId] = useState(null)
+    const [activeQuestionObjectId, setActiveQuestionObjectId] = useState<string | null>(null)
+    const [selectedAnswer, setSelectedAnswer] = useState(null)
+    const [questions, setQuestions] = useState<Question[]>([])
 
     useEffect(()=> {
-      if (questions) {
+      setQuestions(serverResponse)
+    }, [serverResponse])
+
+    useEffect(()=> {
+      if (questions && questions.length > 0) {
         setActiveQuestionObjectId(questions[activeQuestion > 0 ? activeQuestion : 0]._id)
       }
     }, [questions, activeQuestion])
 
-    const activeQuestionToggle = useCallback((idx: number) => {
+
+    const questionStatusToggle = useCallback((idx: number, status: string) => {
             setActiveQuestion(idx)
-            questions.status = 'active'
+            const questionArr = questions
+            questionArr[idx].status = status
+            setQuestions(questionArr)
     }, [questions])
 
-    const completeQuestionStatus = useCallback((idx: number) => {
-            setActiveQuestion(idx)
-            questions.status = 'completed'
-    }, [questions])
+    const setQuestionAnswer = useCallback((idx: number, answer: string) => {
+      const updatedQuestions = [...questions]; 
+      updatedQuestions[idx] = { ...updatedQuestions[idx], answer }; 
+      setQuestions(updatedQuestions); 
+    }, [questions]);
 
     const contextValues = { questions, 
                             isError, 
                             isLoading, 
                             activeQuestion, 
-                            completeQuestionStatus,
+                            questionStatusToggle,
                             activeQuestionObjectId,
-                            activeQuestionToggle  }
+                            setSelectedAnswer,
+                            selectedAnswer,
+                            setQuestionAnswer
+                          }
     
     return (
         <QuestionsContext.Provider value={contextValues}>

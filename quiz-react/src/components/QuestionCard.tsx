@@ -9,23 +9,47 @@ interface Props {
 }
 
 const QuestionCard = ({ questionData }: Props) => {
-// useEffect
-  const { activeQuestion } = useQuestionContext()
+
+  const { activeQuestion,selectedAnswer, setSelectedAnswer, questions } = useQuestionContext()
   const { question = '', options = [] } = questionData
 
+  const getAdditionalStyles = useCallback((option: string)=> {
+    let styles = 'hover:bg-indigo-100'
+    
+    if (option === selectedAnswer) {
+      styles = 'bg-indigo-500'
+
+      if (questions[activeQuestion]?.answer && (option !== questions[activeQuestion]?.answer)) {
+        styles = 'bg-red-500'
+       }
+    }
+  
+     if (option === questions[activeQuestion]?.answer) {
+      styles = 'bg-green-500'
+    }
+  
+    return styles
+  }, [activeQuestion, questions, selectedAnswer])
+
+  const handleSelectOption = useCallback((option: string) => {
+    if (!(questions[activeQuestion]?.answer)) {
+      setSelectedAnswer(option)
+    }
+  }, [activeQuestion, questions, setSelectedAnswer])
 
     const renderOptions = useCallback((options: string[]) => {
-
+      
         return (
           options.map((option: string, idx: number)=> (
-            <div key={idx} className='mb-3 bg-transparent'>
-                <Card className='hover:bg-indigo-100 shadow-none cursor-pointer'>
+            <div key={idx} className='mb-3 bg-transparent' onClick={()=> handleSelectOption(option)}>
+                <Card 
+                className={`${getAdditionalStyles(option)} shadow-none cursor-pointer`}>
                 <p className='text-slate-900'>{option}</p>
                 </Card>
             </div>
           ) )
         )
-      }, [])
+      }, [getAdditionalStyles, handleSelectOption])
 
   return (
     <>
