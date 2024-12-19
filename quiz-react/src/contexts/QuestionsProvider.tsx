@@ -1,7 +1,7 @@
 'use client'
 
 import useQuestions from "@/hooks/useQuestions";
-import { ReactNode, createContext, useCallback, useContext, useState } from "react";
+import { ReactNode, createContext, useCallback, useContext, useEffect, useState } from "react";
 
 
 const QuestionsContext = createContext<any | undefined>(undefined);
@@ -11,6 +11,13 @@ export const QuestionsProvider = ({ children }: { children: ReactNode })=> {
     const { questions, isError, isLoading } = useQuestions('list')
 
     const [activeQuestion, setActiveQuestion] = useState(0) 
+    const [activeQuestionObjectId, setActiveQuestionObjectId] = useState(null)
+
+    useEffect(()=> {
+      if (questions) {
+        setActiveQuestionObjectId(questions[activeQuestion > 0 ? activeQuestion : 0]._id)
+      }
+    }, [questions, activeQuestion])
 
     const activeQuestionToggle = useCallback((idx: number) => {
             setActiveQuestion(idx)
@@ -27,6 +34,7 @@ export const QuestionsProvider = ({ children }: { children: ReactNode })=> {
                             isLoading, 
                             activeQuestion, 
                             completeQuestionStatus,
+                            activeQuestionObjectId,
                             activeQuestionToggle  }
     
     return (

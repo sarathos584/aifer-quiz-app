@@ -1,15 +1,29 @@
+
 'use client'
 
 import { memo, useCallback, useState } from "react"
 import Card from "./Card"
+import axios from "axios"
+import { useQuestionContext } from "@/contexts/QuestionsProvider"
 
-const ExplanationCard = ({ explanation }: { explanation: string }) => {
-
+const ExplanationCard = () => {
+  const [explanation, setExplanation] = useState('')
   const [showExplanation, setShowExplanation] = useState<boolean>(false)
 
+  const { activeQuestionObjectId } = useQuestionContext() 
+  
+  const checkAnswerAndGetExplanation = useCallback( async () => {
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/questions/explanation`, { activeQuestionObjectId }).then(res=> {
+      setExplanation(res.data.data)
+      setShowExplanation(true)
+    }).catch(err=> {
+      console.error(err, 'errr')
+    })
+  }, [activeQuestionObjectId])
+
   const toggleExplanation = useCallback(()=> {
-    if (! showExplanation) setShowExplanation(true)
-  }, [showExplanation])
+    checkAnswerAndGetExplanation()
+  }, [checkAnswerAndGetExplanation])
 
 
   return (
