@@ -3,5 +3,6 @@ export type Question = {
     question: string
     options: string[]
     answer: string
-    explanation: string
+    explanation: string,
+    status?: string
 }

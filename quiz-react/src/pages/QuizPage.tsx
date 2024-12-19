@@ -4,11 +4,9 @@
 import dynamic from "next/dynamic"
 import Link from "next/link"
 import Card from "@/components/Card"
-import axios from 'axios'
 
 import Loading from "@/app/(front-end)/loading"
-import { useCallback, useEffect, useState } from "react"
-import useQuestions from "@/hooks/useQuestions"
+import { useCallback } from "react"
 import { Question } from "@/types/types"
 import { useQuestionContext } from "@/contexts/QuestionsProvider"
 
@@ -21,16 +19,16 @@ const Bubble = dynamic(()=> import("@/components/Bubble"), { ssr: false, loading
 
 const QuizPage = () => {
 
-const { questions, isLoading, isError } = useQuestionContext()
+const { questions, isLoading, isError, activeQuestion } = useQuestionContext()
 
 const renderQuestionBubbles = useCallback((questions: Question[]) => {
 
    return questions.map((question: Question, idx: number)=> (<Bubble 
                                                         value={idx} 
-                                                        status={'todo'} 
+                                                        status={idx === activeQuestion ? 'active' : question?.status ?? ''} 
                                                         id={question._id} 
                                                         key={idx}/>))
-}, [])
+}, [activeQuestion])
 
 
 

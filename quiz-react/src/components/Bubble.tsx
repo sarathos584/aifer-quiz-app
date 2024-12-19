@@ -1,9 +1,9 @@
-import { memo } from "react"
+import { useQuestionContext } from "@/contexts/QuestionsProvider"
+import { memo, useMemo } from "react"
 
-const statusObj: {[key: string]: { [key: string]: string}} = {
-    todo: { bg: 'bg-slate-300', color: 'text-black' },
-    active: { bg: 'bg-red-300', color: 'text-white' },
-    completed: { bg: 'bg-indigo-400', color: 'text-white' }
+const statusStyleObj: { [key: string]: string } = {
+    active: 'bg-red-300 text-white',
+    completed: 'bg-indigo-400 text-white'
 }
 
 interface Props {
@@ -14,8 +14,13 @@ interface Props {
 
 const Bubble = ({ value, status, id }: Props) => {
 
+  const getAdditionalStyles = () => {
+
+    return statusStyleObj[status] ? statusStyleObj[status] : 'bg-slate-300 text-black' 
+  }
+
   return (
-    <div className={`w-[2.5em] h-[2.5em] rounded-full p-2 bg-red-400 grid place-content-center ${statusObj[status]?.bg ?? ""} ${statusObj[status]?.color ?? ""}`}>
+    <div className={`w-[2.5em] h-[2.5em] cursor-pointer rounded-full p-2  grid place-content-center ${getAdditionalStyles()}`}>
         <span>{value + 1}</span>
     </div>
   )
