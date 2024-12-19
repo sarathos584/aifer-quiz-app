@@ -12,7 +12,7 @@ export const listQuestions = async (req, res, next) => {
         return next(new HttpError("Invalid data inputs passed, Please check your data before retry!",422));
       } else {
        
-        const questions = await Question.find({ })
+        const questions = await Question.find({ }).select('question options')
 
         if (! questions) {
 
