@@ -63,7 +63,7 @@ const renderQuestionBubbles = useCallback((questions: Question[]) => {
                     <button disabled={activeQuestion === 0} onClick={prevQuestion} className="btn-primary">Prev</button>
                     <button disabled={activeQuestion === questions.length - 1} onClick={nextQuestion} className="btn-primary">Next</button>
                 </div>
-                <ExplanationCard explanation={'This is sample explanation'}/>
+                <ExplanationCard/>
             </div>
             <div className="basis-[30%] bg-purple-100 min-h-[70vh]">
             <Card className="min-h-full">
