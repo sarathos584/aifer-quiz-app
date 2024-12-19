@@ -7,13 +7,14 @@ import axios from "axios"
 import { useQuestionContext } from "@/contexts/QuestionsProvider"
 
 const ExplanationCard = () => {
-  const [explanation, setExplanation] = useState('')
+  const [explanation, setExplanation] = useState<null | any>(null)
   const [showExplanation, setShowExplanation] = useState<boolean>(false)
 
   const { activeQuestionObjectId } = useQuestionContext() 
   
   const checkAnswerAndGetExplanation = useCallback( async () => {
-    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/questions/explanation`, { activeQuestionObjectId }).then(res=> {
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/questions/explanation`, 
+    { id: activeQuestionObjectId }).then(res=> {
       setExplanation(res.data.data)
       setShowExplanation(true)
     }).catch(err=> {
@@ -35,11 +36,11 @@ const ExplanationCard = () => {
         Show Explanation
         </span>
 
-        { showExplanation && (
+        { showExplanation && explanation && (
             <Card className="mt-3">
                 <p className="card-title">Explanation</p>
                 <div>
-                    <p className="text-slate-900">{explanation}</p>
+                    <p className="text-slate-900">{explanation.explanation}</p>
                 </div>
             </Card>
             )}
