@@ -14,7 +14,7 @@ const port = process.env.PORT || 6000
 connectDB()
 
 const corsOptions = {
-    origin: process.env.CLIENT_URL,
+    origin: 'http://localhost:3900',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
     optionsSuccessStatus: 204,
