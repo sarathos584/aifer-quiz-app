@@ -8,6 +8,12 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      mobile: { max: '524px' },
+      tablet: { min: '524px', max: '820px' },
+      laptop: { min: '820px', max: '1024px'},
+      desktop: { min: '1024px', max: '1300px'}
+    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

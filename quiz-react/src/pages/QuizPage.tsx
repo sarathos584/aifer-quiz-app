@@ -60,10 +60,10 @@ const renderQuestionBubbles = useCallback((questions: Question[]) => {
  if (questions) {
     
     return (
-        <section id='quiz' className="h-full bg-slate-100 min-h-[75vh] w-full] mx-auto max-w-[75vw] rounded-md px-4 py-3">
+        <section id='quiz' className="h-full bg-slate-100 min-h-[75vh] w-full] mx-auto mobile:max-w-[90vw] max-w-[75vw]  rounded-md px-4 py-3">
             <h3 className="text-center font-medium text-xl text-black mb-[1em]">Quiz Title</h3>
-            <div className="flex gap-5">
-            <div className="basis-[70%] min-h-[70vh]">
+            <div className="mobile:grid  flex gap-5">
+            <div className="basis-[70%] mobile:min-h-[53vh] min-7-[70vh]">
                 <QuestionCard questionData={questions[activeQuestion]} />
                 <div className="button-group flex justify-center items-center gap-x-2 mt-5">
                     <button disabled={activeQuestion === 0} onClick={prevQuestion} className="btn-primary">Prev</button>
@@ -71,13 +71,13 @@ const renderQuestionBubbles = useCallback((questions: Question[]) => {
                 </div>
                 <ExplanationCard/>
             </div>
-            <div className="basis-[30%] bg-purple-100 min-h-[70vh]">
+            <div className="basis-[30%] bg-purple-100 mobile:min-h-[30vh] min-h-[70vh]">
             <Card className="min-h-full">
                 <div className="card-header flex justify-between items-center text-slate-950 mb-6">
                 <p>Question {activeQuestion + 1}/{questions.length}</p>
                 <Link href={'/'}>Need Help?</Link>
                 </div>
-                <div className="card-content grid grid-cols-5 gap-2 place-items-center">
+                <div className="card-content grid grid-cols-5 desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-5 gap-2 place-items-center">
                 {
                    renderQuestionBubbles(questions)
                 }

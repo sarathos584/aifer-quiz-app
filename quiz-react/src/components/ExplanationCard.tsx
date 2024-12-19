@@ -35,12 +35,12 @@ const ExplanationCard = () => {
 
   return (
     <>
-        <span  
-        className="underline underline-offset-4 font-normal text-indigo-400 cursor-pointer" 
+        <p  
+        className="mobile:text-center mobile:mt-3 tablet:text-center tablet:mt-3 underline underline-offset-4 font-normal text-indigo-400 cursor-pointer xs:text-center xs:mt-2" 
         onClick={toggleExplanation}
         >
         Show Explanation
-        </span>
+        </p>
 
         { showExplanation && explanation && (
             <Card className="mt-3">
