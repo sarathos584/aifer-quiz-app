@@ -1,4 +1,5 @@
 import Header from "@/components/Header"
+import { QuestionsProvider } from "@/contexts/QuestionsProvider"
 
 
 
@@ -6,7 +7,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
     <Header/>
-    {children}
+    <QuestionsProvider>
+      {children}
+    </QuestionsProvider>
     </>
   )
 }

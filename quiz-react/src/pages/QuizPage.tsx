@@ -10,6 +10,7 @@ import Loading from "@/app/(front-end)/loading"
 import { useCallback, useEffect, useState } from "react"
 import useQuestions from "@/hooks/useQuestions"
 import { Question } from "@/types/types"
+import { useQuestionContext } from "@/contexts/QuestionsProvider"
 
 const QuestionCard = dynamic(()=> import("@/components/QuestionCard"), { ssr: false, loading: () => <Loading/> })
 const ExplanationCard = dynamic(()=> import("@/components/ExplanationCard"), { ssr: false, loading: () => <Loading/> })
@@ -20,7 +21,7 @@ const Bubble = dynamic(()=> import("@/components/Bubble"), { ssr: false, loading
 
 const QuizPage = () => {
 
-const { questions, isLoading, isError } = useQuestions('list')
+const { questions, isLoading, isError } = useQuestionContext()
 
 const renderQuestionBubbles = useCallback((questions: Question[]) => {
 
