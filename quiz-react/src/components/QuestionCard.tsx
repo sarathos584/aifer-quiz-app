@@ -1,14 +1,18 @@
 
-import { useCallback } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import Card from './Card'
+import { Question } from '@/types/types'
+import { useQuestionContext } from '@/contexts/QuestionsProvider'
 
 interface Props {
-    questionCount: number,
-    question: string,
-    options: string[]
+    questionData: Question
 }
 
-const QuestionCard = ({ questionCount, question, options }: Props) => {
+const QuestionCard = ({ questionData }: Props) => {
+// useEffect
+  const { activeQuestion } = useQuestionContext()
+  const { question = '', options = [] } = questionData
+
 
     const renderOptions = useCallback((options: string[]) => {
 
@@ -26,7 +30,7 @@ const QuestionCard = ({ questionCount, question, options }: Props) => {
   return (
     <>
     <Card className='border-indigo-500/100'>
-      <p className="font-medium text-black mb-2">Question {questionCount}</p>
+      <p className="font-medium text-black mb-2">Question {activeQuestion + 1}</p>
       <div>
        <p className="text-zinc-600">{question}</p>
       </div>

@@ -15,11 +15,22 @@ const ExplanationCard = dynamic(()=> import("@/components/ExplanationCard"), { s
 const Bubble = dynamic(()=> import("@/components/Bubble"), { ssr: false, loading: () => <Loading/> })
 
 
-
-
 const QuizPage = () => {
 
-const { questions, isLoading, isError, activeQuestion } = useQuestionContext()
+const { questions, 
+        isLoading, 
+        isError, 
+        activeQuestion, 
+        activeQuestionToggle } = useQuestionContext()
+
+
+const prevQuestion = useCallback(() => {
+    activeQuestionToggle(activeQuestion - 1)
+}, [activeQuestion, activeQuestionToggle])
+
+const nextQuestion = useCallback(() => {
+    activeQuestionToggle(activeQuestion + 1)
+}, [activeQuestion, activeQuestionToggle])
 
 const renderQuestionBubbles = useCallback((questions: Question[]) => {
 
@@ -29,8 +40,6 @@ const renderQuestionBubbles = useCallback((questions: Question[]) => {
                                                         id={question._id} 
                                                         key={idx}/>))
 }, [activeQuestion])
-
-
 
  if (isLoading) {
     
@@ -49,23 +58,20 @@ const renderQuestionBubbles = useCallback((questions: Question[]) => {
             <h3 className="text-center font-medium text-xl text-black mb-[1em]">Quiz Title</h3>
             <div className="flex gap-5">
             <div className="basis-[70%] min-h-[70vh]">
-                <QuestionCard question={'loere asdj fa asdjf asl asdjj'} questionCount={1} options={['11', '111', '1111']}/>
+                <QuestionCard questionData={questions[activeQuestion]} />
                 <div className="button-group flex justify-center items-center gap-x-2 mt-5">
-                    <button className="btn-primary">Prev</button>
-                    <button className="btn-primary">Next</button>
+                    <button disabled={activeQuestion === 0} onClick={prevQuestion} className="btn-primary">Prev</button>
+                    <button disabled={activeQuestion === questions.length - 1} onClick={nextQuestion} className="btn-primary">Next</button>
                 </div>
                 <ExplanationCard explanation={'This is sample explanation'}/>
             </div>
             <div className="basis-[30%] bg-purple-100 min-h-[70vh]">
             <Card className="min-h-full">
                 <div className="card-header flex justify-between items-center text-slate-950 mb-6">
-                <p>Question 1/8</p>
+                <p>Question {activeQuestion + 1}/{questions.length}</p>
                 <Link href={'/'}>Need Help?</Link>
                 </div>
                 <div className="card-content grid grid-cols-5 gap-2 place-items-center">
-                {/* <Bubble value={1} status="active"/>
-                <Bubble value={1} status="todo"/>
-                <Bubble value={1} status="completed"/> */}
                 {
                    renderQuestionBubbles(questions)
                 }
