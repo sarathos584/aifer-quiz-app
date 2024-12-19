@@ -1,5 +1,5 @@
-import { useQuestionContext } from "@/contexts/QuestionsProvider"
-import { memo, useMemo } from "react"
+
+import { memo } from "react"
 
 const statusStyleObj: { [key: string]: string } = {
     active: 'bg-red-300 text-white',
