@@ -46,6 +46,7 @@ const ExplanationCard = () => {
             <Card className="mt-3">
                 <p className="card-title">Explanation</p>
                 <div>
+                    <p className="text-slate-900">Correct Answer: {explanation?.answer}</p>
                     <p className="text-slate-900">{explanation.explanation}</p>
                 </div>
             </Card>
