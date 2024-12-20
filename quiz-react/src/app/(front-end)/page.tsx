@@ -41,7 +41,7 @@ const prevQuestion = useCallback(() => {
 }, [activeQuestion,setSelectedAnswer, questionStatusToggle])
 
 const nextQuestion = useCallback(() => {
-   if (questions[activeQuestion]?.selectedAnswer) {
+   if (questions[activeQuestion]?.answer || questions[activeQuestion]?.selectedAnswer) {
     questionStatusToggle(activeQuestion, 'attended')
     questionStatusToggle(activeQuestion + 1, 'active')
     setSelectedAnswer(null)
