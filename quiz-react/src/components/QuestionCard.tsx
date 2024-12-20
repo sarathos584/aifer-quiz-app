@@ -7,8 +7,8 @@ import { useQuestionContext } from '@/contexts/QuestionsProvider'
 
 const QuestionCard = () => {
 
-  const { activeQuestion,selectedAnswer, setSelectedAnswer, questions } = useQuestionContext()
-  const { question, options } = questions[activeQuestion]
+  const { activeQuestion, setSelectedAnswer, questions, setSelectedQuestionAnswer } = useQuestionContext()
+  const { question, options,selectedAnswer } = questions[activeQuestion]
 
   const getAdditionalStyles = useCallback((option: string)=> {
     let styles = 'hover:bg-indigo-100'
@@ -30,9 +30,10 @@ const QuestionCard = () => {
 
   const handleSelectOption = useCallback((option: string) => {
     if (!(questions[activeQuestion]?.answer)) {
+      setSelectedQuestionAnswer(activeQuestion, option)
       setSelectedAnswer(option)
     }
-  }, [activeQuestion, questions, setSelectedAnswer])
+  }, [activeQuestion, questions, setSelectedAnswer, setSelectedQuestionAnswer])
 
     const renderOptions = useCallback((options: string[]) => {
       

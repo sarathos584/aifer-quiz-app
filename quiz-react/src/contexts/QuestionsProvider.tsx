@@ -40,6 +40,12 @@ export const QuestionsProvider = ({ children }: { children: ReactNode })=> {
       setQuestions(updatedQuestions); 
     }, [questions]);
 
+    const setSelectedQuestionAnswer = useCallback((idx: number, answer: string) => {
+      const updatedQuestions = [...questions]; 
+      updatedQuestions[idx] = { ...updatedQuestions[idx], selectedAnswer: answer }; 
+      setQuestions(updatedQuestions); 
+    }, [questions]);
+
     const contextValues = { questions, 
                             isError, 
                             isLoading, 
@@ -48,6 +54,7 @@ export const QuestionsProvider = ({ children }: { children: ReactNode })=> {
                             activeQuestionObjectId,
                             setSelectedAnswer,
                             selectedAnswer,
+                            setSelectedQuestionAnswer,
                             setQuestionAnswer
                           }
     
