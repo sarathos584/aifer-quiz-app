@@ -5,14 +5,15 @@ import dynamic from "next/dynamic"
 import Link from "next/link"
 import Card from "@/components/Card"
 
-import Loading from "@/app/(front-end)/loading"
 import { useCallback } from "react"
 import { Question } from "@/types/types"
 import { useQuestionContext } from "@/contexts/QuestionsProvider"
+import BubbleSkelton from "@/components/skeltons/BubbleSkelton"
+import QuestionCardSkelton from "@/components/skeltons/QuestionCardSkelton"
 
-const QuestionCard = dynamic(()=> import("@/components/QuestionCard"), { ssr: false, loading: () => <Loading/> })
-const ExplanationCard = dynamic(()=> import("@/components/ExplanationCard"), { ssr: false, loading: () => <Loading/> })
-const Bubble = dynamic(()=> import("@/components/Bubble"), { ssr: false, loading: () => <Loading/> })
+const QuestionCard = dynamic(()=> import("@/components/QuestionCard"), { ssr: false, loading: ()=> <QuestionCardSkelton/> })
+const ExplanationCard = dynamic(()=> import("@/components/ExplanationCard"), { ssr: false })
+const Bubble = dynamic(()=> import("@/components/Bubble"), { ssr: false ,loading:()=> <BubbleSkelton/> })
 
 
 const QuizPage = () => {
