@@ -11,21 +11,24 @@ const ExplanationCard = () => {
   const [explanation, setExplanation] = useState<null | any>(null)
   const [showExplanation, setShowExplanation] = useState<boolean>(false)
   const { activeQuestionObjectId, activeQuestion, selectedAnswer, setQuestionAnswer, questions } = useQuestionContext() 
+  const [isButtonLoading, setIsButtonLoading] = useState(false)
   
   const checkAnswerAndGetExplanation = useCallback( async () => {
+    setIsButtonLoading(true)
     await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/questions/explanation`, 
     { id: activeQuestionObjectId, answer: selectedAnswer }).then(res=> {
       setExplanation(res.data.data)
       setQuestionAnswer(activeQuestion, res.data.data.answer)
+      setIsButtonLoading(false)
       setShowExplanation(true)
     }).catch(err=> {
-      console.error(err, 'error')
+      setIsButtonLoading(false)
     })
   }, [activeQuestion, activeQuestionObjectId, selectedAnswer, setQuestionAnswer])
 
   const toggleExplanation = useCallback(()=> {
-    checkAnswerAndGetExplanation()
-  }, [checkAnswerAndGetExplanation])
+    if (! isButtonLoading) checkAnswerAndGetExplanation()
+  }, [checkAnswerAndGetExplanation, isButtonLoading])
 
   useEffect(()=> {
     if (!(questions[activeQuestion]?.answer))
@@ -41,6 +44,9 @@ const ExplanationCard = () => {
         >
         Show Explanation
         </p>
+        {
+          isButtonLoading && <div className="mt-3 py-11 bg-slate-300 rounded-md"/>
+        }
 
         { showExplanation && explanation && (
             <Card className="mt-3">
