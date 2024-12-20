@@ -16,14 +16,14 @@ const QuestionCard = () => {
     if (option === selectedAnswer) {
         styles = 'selected_answer'
 
-      if (questions[activeQuestion]?.answer && (option !== questions[activeQuestion]?.answer)) {
+      if (option === questions[activeQuestion]?.answer) {
+        styles = 'correct_answer'
+      } else if (questions[activeQuestion]?.answer && (option !== questions[activeQuestion]?.answer)) {
         styles = 'incorrect_answer'
-       }
+      }
     }
   
-     if (option === questions[activeQuestion]?.answer) {
-        styles = 'correct_answer'
-    }
+    
   
     return styles
   }, [activeQuestion, questions, selectedAnswer])
