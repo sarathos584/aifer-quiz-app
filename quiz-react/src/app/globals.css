@@ -60,11 +60,11 @@ body {
 }
 
 .selected_answer {
-  background: purple !important;
+  background:  rgb(99 102 241 / 1);
 }
 .correct_answer {
-  background: green !important;
+  background: rgb(76, 237, 76) !important;
 }
 .incorrect_answer {
-  background: red !important;
+  background: rgb(255, 44, 44) !important;
 }
