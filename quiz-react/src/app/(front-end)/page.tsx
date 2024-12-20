@@ -50,7 +50,15 @@ const renderQuestionBubbles = useCallback((questions: Question[]) => {
 
  if (isLoading) {
     
-    return <div>Loading...</div>
+    return  (
+        <main className="py-4">
+            <section id='quiz' className="h-full bg-slate-100 min-h-[75vh] w-full] mx-auto mobile:max-w-[90vw] max-w-[75vw]  rounded-md px-4 py-3">
+                <h3 className="text-center font-medium text-xl text-black mb-[1em]">Quiz Title</h3>
+                <div className="mobile:grid  flex gap-5"/>
+            </section>
+         </main>
+           
+    )
  }
 
  if (isError) {
