@@ -6,7 +6,7 @@ const SelectAnswerDialog = ({ isOpen, onClose }: { isOpen: boolean, onClose?: ()
 
   return (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-8 rounded-lg w-96">
+      <div className="bg-white p-8 rounded-lg w-96 mobile:max-w-[85vw]">
         <h2 className="text-xl font-semibold mb-4">Select an option</h2>
         <p className="mb-4 text-slate-800">
             Please select your answer to go for next question!
