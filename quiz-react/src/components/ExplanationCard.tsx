@@ -27,8 +27,8 @@ const ExplanationCard = () => {
   }, [activeQuestion, activeQuestionObjectId, selectedAnswer, setQuestionAnswer])
 
   const toggleExplanation = useCallback(()=> {
-    if (! isButtonLoading) checkAnswerAndGetExplanation()
-  }, [checkAnswerAndGetExplanation, isButtonLoading])
+    if (! isButtonLoading && !showExplanation) checkAnswerAndGetExplanation()
+  }, [checkAnswerAndGetExplanation, isButtonLoading, showExplanation])
 
   useEffect(()=> {
     if (!(questions[activeQuestion]?.answer))
@@ -40,9 +40,9 @@ const ExplanationCard = () => {
     <>
         <p  
         className="mobile:text-center mobile:mt-3 tablet:text-center tablet:mt-3 underline underline-offset-4 font-normal text-indigo-400 cursor-pointer xs:text-center xs:mt-2" 
-        onClick={toggleExplanation}
+        
         >
-        Show Explanation
+        <span className="cursor-pointer" onClick={toggleExplanation}>Show Explanation</span>
         </p>
         {
           isButtonLoading && <div className="mt-3 py-11 bg-slate-300 rounded-md"/>
