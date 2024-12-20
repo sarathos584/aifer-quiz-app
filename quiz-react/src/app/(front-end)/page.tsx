@@ -5,11 +5,12 @@ import dynamic from "next/dynamic"
 import Link from "next/link"
 import Card from "@/components/Card"
 
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 import { Question } from "@/types/types"
 import { useQuestionContext } from "@/contexts/QuestionsProvider"
 import BubbleSkelton from "@/components/skeltons/BubbleSkelton"
 import QuestionCardSkelton from "@/components/skeltons/QuestionCardSkelton"
+import SelectAnswerDialog from "@/components/SelectAnswerDialog"
 
 const QuestionCard = dynamic(()=> import("@/components/QuestionCard"), { ssr: false, loading: ()=> <QuestionCardSkelton/> })
 const ExplanationCard = dynamic(()=> import("@/components/ExplanationCard"), { ssr: false })
@@ -17,6 +18,12 @@ const Bubble = dynamic(()=> import("@/components/Bubble"), { ssr: false ,loading
 
 
 const QuizPage = () => {
+
+const [warning, setWarning] = useState(false)
+
+const toggleWarningDialog = useCallback(()=> {
+    setWarning(prev=> ! prev)
+}, [])
 
 const { questions, 
         isLoading, 
@@ -34,10 +41,14 @@ const prevQuestion = useCallback(() => {
 }, [activeQuestion,setSelectedAnswer, questionStatusToggle])
 
 const nextQuestion = useCallback(() => {
+   if (questions[activeQuestion]?.selectedAnswer) {
     questionStatusToggle(activeQuestion, 'attended')
     questionStatusToggle(activeQuestion + 1, 'active')
     setSelectedAnswer(null)
-}, [activeQuestion, setSelectedAnswer, questionStatusToggle])
+   } else {
+    toggleWarningDialog()
+   }
+}, [questions, activeQuestion, questionStatusToggle, setSelectedAnswer, toggleWarningDialog])
 
 const renderQuestionBubbles = useCallback((questions: Question[]) => {
 
@@ -96,6 +107,7 @@ const renderQuestionBubbles = useCallback((questions: Question[]) => {
         </div>
             </div>
           </section>
+          <SelectAnswerDialog isOpen={warning} onClose={toggleWarningDialog}/>
        </main>
       )
  }
