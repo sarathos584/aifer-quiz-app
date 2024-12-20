@@ -65,7 +65,7 @@ const renderQuestionBubbles = useCallback((questions: Question[]) => {
             <h3 className="text-center font-medium text-xl text-black mb-[1em]">Quiz Title</h3>
             <div className="mobile:grid  flex gap-5">
             <div className="basis-[70%] mobile:min-h-[53vh] min-7-[70vh]">
-                <QuestionCard questionData={questions[activeQuestion]} />
+                <QuestionCard />
                 <div className="button-group flex justify-center items-center gap-x-2 mt-5">
                     <button disabled={activeQuestion === 0} onClick={prevQuestion} className="btn-primary">Prev</button>
                     <button disabled={activeQuestion === questions.length - 1} onClick={nextQuestion} className="btn-primary">Next</button>

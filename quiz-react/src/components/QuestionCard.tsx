@@ -4,28 +4,25 @@ import Card from './Card'
 import { Question } from '@/types/types'
 import { useQuestionContext } from '@/contexts/QuestionsProvider'
 
-interface Props {
-    questionData: Question
-}
 
-const QuestionCard = ({ questionData }: Props) => {
+const QuestionCard = () => {
 
   const { activeQuestion,selectedAnswer, setSelectedAnswer, questions } = useQuestionContext()
-  const { question = '', options = [] } = questionData
+  const { question, options } = questions[activeQuestion]
 
   const getAdditionalStyles = useCallback((option: string)=> {
     let styles = 'hover:bg-indigo-100'
     
     if (option === selectedAnswer) {
-      styles = 'bg-indigo-500'
+        styles = 'selected_answer'
 
       if (questions[activeQuestion]?.answer && (option !== questions[activeQuestion]?.answer)) {
-        styles = 'bg-red-500'
+        styles = 'incorrect_answer'
        }
     }
   
      if (option === questions[activeQuestion]?.answer) {
-      styles = 'bg-green-500'
+        styles = 'correct_answer'
     }
   
     return styles

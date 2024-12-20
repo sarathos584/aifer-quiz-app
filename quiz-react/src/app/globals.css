@@ -58,3 +58,13 @@ body {
 .card .card-title {
   color: rgb(99 102 241 / 1);
 }
+
+.selected_answer {
+  background: purple !important;
+}
+.correct_answer {
+  background: green !important;
+}
+.incorrect_answer {
+  background: red !important;
+}
